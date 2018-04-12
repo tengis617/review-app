@@ -1,0 +1,25 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --watch dist/"
+  },
+  "dependencies": {
+    "@koa/cors": "2",
+    "@types/koa": "^2.0.45",
+    "arangojs": "^6.2.3",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.4",
+    "jsonwebtoken": "^8.2.1",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.60",
+    "nodemon": "^1.17.2"
+  }
+}
