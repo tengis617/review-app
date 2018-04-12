@@ -9,6 +9,9 @@ const Header = ({ isAuthenticated, onLogoutClick }) => (
       <span className="font-semibold text-xl tracking-tight"><Link to="/">review-app</Link></span>
     </div>
     <div>
+    <Link to="/register-business"> Register Business </Link>
+    </div>
+    <div>
       {
         isAuthenticated ? 
         <AuthenticatedNav onLogoutClick={onLogoutClick} /> 

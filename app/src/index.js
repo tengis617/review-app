@@ -9,6 +9,9 @@ import Root from './containers/Root'
 import configureStore from './configureStore'
 import { initiateState } from './startup'
 import './main.css'
+import '@fortawesome/fontawesome'
+import '@fortawesome/fontawesome-free-regular'
+import '@fortawesome/fontawesome-free-solid'
 
 if (module.hot) {
   module.hot.dispose(function () {

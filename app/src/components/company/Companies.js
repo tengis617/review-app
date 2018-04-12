@@ -12,8 +12,8 @@ class Companies extends Component {
   render() {
     const { companies } = this.props
     return (
-      <div className='flex flex-wrap'>
-        <CompanyList companies={companies.items} />
+      <div>
+        <CompanyList companies={companies.items}/>
       </div>
     )
   }

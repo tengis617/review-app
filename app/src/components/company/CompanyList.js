@@ -4,7 +4,7 @@ import CompanyCard from './CompanyCard'
 const CompanyList = ({ companies }) => (
   <div className='flex-1'>
     {companies.map((company, i) => (
-      <CompanyCard key={i} {...company} />
+      <CompanyCard key={i} company={company} />
     ))}
   </div>
 )

@@ -1,33 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { withRouter  } from 'react-router-dom'
+import { connect } from 'react-redux'
 
+import { navigateToCompanyPage } from './actions'
 import { Tag, Card, Rating } from '../ui'
 
-const CompanyCard = ({ name, description, rating, reviews, category, _id, image }) => (
-  <Card image={image}>
+const CompanyCard = ({ company, handleClick }) => (
+  <Card image={company.image} onClick={() => handleClick(company)}>
     <div className="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
         <div className="text-black font-bold text-2xl">
-          {name}
+          {company.name}
         </div>
         <div className="py-1">
-          <Rating rating={rating}/> <span className="text-sm font-semibold mb-2">{reviews}</span>
+          <Rating rating={company.rating}/> <span className="text-sm font-semibold mb-2">{company.reviews}</span>
         </div>
         <div className="py-1">
           <p className="text-grey-darker text-base">
-          {description}
+          {company.description}
           </p>
         </div>
         <div className="py-1">
-          <Tag>{category}</Tag>
+          <Tag>{company.category}</Tag>
         </div>
     </div>
   </Card>
 )
-
 CompanyCard.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   rating: PropTypes.any.isRequired
 }
-export default CompanyCard
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleClick: company => {
+      dispatch(navigateToCompanyPage(company))
+    }
+  }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(CompanyCard))

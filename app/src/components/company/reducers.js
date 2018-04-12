@@ -5,6 +5,7 @@ import {
   RECEIVE_COMPANIES,
   REQUEST_COMPANY_INFO,
   RECEIVE_COMPANY_INFO,
+  SELECT_COMPANY,
 } from './actions'
 
 export function companies(
@@ -16,14 +17,16 @@ export function companies(
 ) {
   switch (action.type) {
     case REQUEST_COMPANIES:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: true, 
-      })
+      }
     case RECEIVE_COMPANIES:
-      return Object.assign({}, state, {
+      return { 
+        state,
         isFetching: false, 
         items: action.companies, 
-      })
+      }
     default:
       return state
   }
@@ -31,6 +34,10 @@ export function companies(
 
 export const selectedCompany = (
   state = {
+    name: '',
+    id: '',
+    imageUrl: '',
+    rating: '',
     isFetching: false,
     reviews: [],
     info: {}
@@ -38,15 +45,22 @@ export const selectedCompany = (
   action
 ) => {
   switch (action.type) {
+    case SELECT_COMPANY:
+    return {
+      ...state,
+      ...action.company
+    }
     case REQUEST_COMPANY_INFO:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: true,
-      })
+      }
     case RECEIVE_COMPANY_INFO:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: false,
-        info: action.info
-      })
+        ...action.company
+      }
     default:
       return state
   }

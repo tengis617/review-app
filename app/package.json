@@ -9,6 +9,10 @@
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome-free-regular": "^5.0.10",
+    "@fortawesome/fontawesome-free-solid": "^5.0.10",
+    "@fortawesome/react-fontawesome": "^0.0.18",
     "autoprefixer": "^8.2.0",
     "axios": "^0.18.0",
     "components": "^0.1.0",
@@ -17,7 +21,8 @@
     "moment": "^2.22.0",
     "postcss-import": "^11.1.0",
     "postcss-modules": "^1.1.0",
-    "react": "^16.2.0",
+    "prop-types": "15.x",
+    "react": "16.x",
     "react-dom": "^16.2.0",
     "react-rating": "^1.1.2",
     "react-redux": "^5.0.7",
