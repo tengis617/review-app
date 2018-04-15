@@ -58,7 +58,6 @@ export const fetchCompanyInfo = (id) => {
   return async function (dispatch) {
     dispatch(requestCompanyInfo(id))
     const { data } = await Axios.get(`http://localhost:8080/company/${id}`)
-    console.log('-------', data)
     return dispatch(receiveCompanyInfo(data))
   }
 }
