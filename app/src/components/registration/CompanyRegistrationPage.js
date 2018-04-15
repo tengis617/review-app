@@ -1,12 +1,10 @@
 import React from 'react'
+import CompanyRegistrationForm from './CompanyRegistrationForm'
 
-import CategorySelectionStep from './CategorySelectionStep'
-import BasicInformationStep from './BasicInformationStep'
-import UploadImagesStep from './UploadImagesStep'
-export default () => (
-  <div className="max-w-md container mx-auto">
-    <CategorySelectionStep />
-    <BasicInformationStep />
-    <UploadImagesStep />
+const CompanyRegistrationPage = () => (
+  <div>
+    <CompanyRegistrationForm />
   </div>
 )
+
+export default CompanyRegistrationPage
