@@ -1,6 +1,6 @@
 import * as Router from 'koa-router'
 import { aql } from 'arangojs'
-import uuidv4 from 'uuid/v4'
+import * as uuidv4 from 'uuid/v4'
 import db from '../db'
 
 const r = new Router()

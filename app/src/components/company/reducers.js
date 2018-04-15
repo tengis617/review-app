@@ -8,30 +8,6 @@ import {
   SELECT_COMPANY,
 } from './actions'
 
-export function companies(
-  state = {
-    isFetching: false,
-    items: []
-  },
-  action
-) {
-  switch (action.type) {
-    case REQUEST_COMPANIES:
-      return {
-        ...state,
-        isFetching: true, 
-      }
-    case RECEIVE_COMPANIES:
-      return { 
-        state,
-        isFetching: false, 
-        items: action.companies, 
-      }
-    default:
-      return state
-  }
-}
-
 export const selectedCompany = (
   state = {
     name: '',

@@ -1,6 +1,7 @@
 import * as Koa from 'koa'
 import * as bodyParser from 'koa-bodyparser'
 import * as cors from '@koa/cors'
+import * as Router from 'koa-router'
 
 import Config from './config'
 import reviewService from './review-service'
@@ -12,6 +13,6 @@ app.use(bodyParser())
 app.use(cors())
 
 app.use(companyService.routes())
+app.use(companyService.allowedMethods())
 app.use(authenticationService.routes())
-
 app.listen(Config.PORT, () => console.log(`listening on port ${Config.PORT}`))

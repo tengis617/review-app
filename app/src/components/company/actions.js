@@ -1,24 +1,10 @@
 import Axios from 'axios'
 import { push } from 'react-router-redux'
 
-export const REQUEST_COMPANIES = 'REQUEST_COMPANIES'
-export const RECEIVE_COMPANIES = 'RECEIVE_COMPANIES'
 export const REQUEST_COMPANY_INFO = 'REQUEST_COMPANY_INFO'
 export const RECEIVE_COMPANY_INFO = 'RECEIVE_COMPANY_INFO'
 export const SELECT_COMPANY = 'SELECT_COMPANY'
 
-const requestCompanies = () => {
-  return {
-    type: REQUEST_COMPANIES,
-  }
-}
-
-const receiveCompanies = (companies) => {
-  return {
-    type: RECEIVE_COMPANIES,
-    companies,
-  }
-}
 
 const requestCompanyInfo = (id) => {
   return {
@@ -46,13 +32,6 @@ export const navigateToCompanyPage = (company) => {
   }
 }
 
-export const fetchCompanies = () => {
-  return async function (dispatch) {
-    dispatch(requestCompanies())
-    const { data } = await Axios.get('http://localhost:8080/company/all')
-    return dispatch(receiveCompanies(data))
-  }
-}
 
 export const fetchCompanyInfo = (id) => {
   return async function (dispatch) {
