@@ -1,6 +1,6 @@
 import Axios from 'axios'
 
-const callApi = ({ method, path, data }) => {
+export const callApi = ({ method, path, data }) => {
   const baseUrl = 'http://localhost:8080'
   const accessToken = localStorage.getItem('access_token')
   return Axios({
