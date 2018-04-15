@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import { tryLogout } from '../login/actions'
+import { Button } from '../ui'
 
 const Header = ({ isAuthenticated, onLogoutClick }) => (
   <nav className="flex items-center justify-between flex-wrap bg-white p-6">
@@ -25,7 +26,10 @@ const Header = ({ isAuthenticated, onLogoutClick }) => (
 const AuthenticatedNav = ({ onLogoutClick }) => (
   <div>
     <Link to="/profile"> Profile </Link>
-    <button onClick={() => onLogoutClick()}> Logout </button>
+    <Button 
+      handleClick={onLogoutClick}
+      text="Logout"
+    />
   </div>
 )
 function mapStateToProps(state) {
