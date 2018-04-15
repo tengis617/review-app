@@ -1,6 +1,6 @@
 import * as Router from 'koa-router'
 import { aql } from 'arangojs'
-import uuidv4 from 'uuid/v4'
+import * as uuidv4 from 'uuid/v4'
 import db from '../db'
 import * as Service from './service'
 
@@ -24,7 +24,11 @@ r.get('/:id', async (ctx, next) => {
 r.post('/create', async (ctx, next) => {
   const id = uuidv4()
   const company = ctx.request.body
-  const newCompany = await Service.createCompany(company)
+  const newCompany = await Service.createCompany({
+    ...company,
+    _key: id
+  })
+  ctx.body = newCompany
 })
 
 
