@@ -1,5 +1,4 @@
 import { aql } from 'arangojs'
-import uuidv4 from 'uuid/v4'
 import db from '../db'
 import { Company } from './index.d'
 
@@ -35,11 +34,10 @@ export const getCompanyById = async (id:string) => {
 }
 
 export const createCompany = async (company: Company) => {
-  const id = uuidv4()
   const c = await db.query(aql`
     INSERT ${company} INTO companies
       RETURN NEW
   `)
   const newCompany = await c.all()
-  return newCompany
+  return newCompany[0]
 }
