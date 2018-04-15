@@ -2,22 +2,23 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
-import { Avatar, Card } from '../ui'
+import { Avatar, Card, Header, Row, Label } from '../ui'
 
 export const UserProfilePage = ({ user }) => (
   <div className="container mx-auto">
     <Card>
-      <div className="flex flex-col w-full">
+      <Row>
+        <Header size="2xl">My Profile</Header>
+      </Row>
+      <Row>
         <div className="flex justify-center">
-          <Avatar url={user.info.image} />
+          <Avatar url={user.info.image} /> 
         </div>
-        <div className="flex justify-center">
-          <div className='font-semibold text-4xl p-4'>{user.info.name}</div>
-        </div>
-        <div className="flex justify-center">
-          email: {user.info.email}
-        </div>
-      </div>
+      </Row>
+      <Row>
+        <Label text="email" />
+          {user.info.email}
+      </Row>
     </Card>
   </div>
 )
