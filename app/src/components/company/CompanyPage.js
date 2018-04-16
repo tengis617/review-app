@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { graphql, Query } from 'react-apollo'
+import gql from 'graphql-tag'
+
 import {
   fetchReviews,
   fetchCompanyInfo
@@ -10,39 +13,33 @@ import ReviewList from '../reviews/ReviewList'
 import CompanyInfo from './CompanyInfo'
 import { Header } from '../ui'
 
-class CompanyPage extends Component {
-  componentDidMount() {
-    const { id } = this.props.match.params
-    this.props.dispatch(fetchCompanyInfo(id))
-  }
-  render() {
-    const { company } = this.props
-    return (
-      <div>
+const queryCompany = gql`query getCompanyById($id: String!) {
+    company: getCompanyById(id: $id) {
+      id, name, description 
+    }
+}`
+
+const CompanyPage = ({ data, match }) => (
+  <Query query={queryCompany} variables={{ id: match.params.id }}>
+    {({ loading, error, data }) => {
+      if (loading) return null;
+      if (error) return `Error!: ${error}`
+      return (
         <div>
-          <Header size="4xl">{company.name}</Header>
+        <div>
+          <Header size="4xl">{data.company.name}</Header>
           <div className='h-48 md:h-half-screen lg:h-half-screen flex-content-center flex-none bg-cover text-center overflow-hidden' style={{ backgroundImage: `url(${'https://tailwindcss.com/img/card-left.jpg'})` }}>
-        </div>
-          <CompanyInfo {...company.info} />
+          </div>
+          <CompanyInfo {...data.company.info} />
         </div>
         <div className='w-full'>
           <ReviewList />
         </div>
-      </div>
+        </div>
     )
-  }
-}
-
-function mapStateToProps(state) {
-  const { selectedCompany } = state || {
-    info: {
-      isFetching: true
-    },
-    reviews: [],
-  }
-  return {
-    company: selectedCompany
-  }
-}
-
-export default withRouter(connect(mapStateToProps)(CompanyPage))
+    }}
+  </Query>
+        
+  )
+  
+export default CompanyPage

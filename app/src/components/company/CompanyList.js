@@ -5,8 +5,7 @@ import gql from 'graphql-tag'
 import CompanyCard from './CompanyCard'
 import { Row, Col } from '../ui'
 
-const queryCompanies = gql`query { companies { name, description } }`
-
+const queryCompanies = gql`query { companies { name, description, id } }`
 
 const CompanyList = ({ data, loading }) => (
   <Query query={queryCompanies}>

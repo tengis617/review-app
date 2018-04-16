@@ -7,8 +7,6 @@ import { user } from './components/login/reducers'
 import companyRegistrationForm from './components/registration/reducers'
 
 const rootReducer = combineReducers({
-  selectedCompany,
-  companies,
   user,
   companyRegistrationForm,
   form: formReducer,

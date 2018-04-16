@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter  } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 
 import { navigateToCompanyPage } from './actions'
 import { Tag, Card, Rating } from '../ui'
 
 const CompanyCard = ({ company, handleClick }) => (
-  <Card image={company.image} onClick={() => handleClick(company)}>
+  <Card image={company.image} onClick={() => handleClick(company.id)}>
     <div className="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
         <div className="text-black font-bold text-2xl">
           {company.name}
@@ -26,18 +27,16 @@ const CompanyCard = ({ company, handleClick }) => (
     </div>
   </Card>
 )
+
 CompanyCard.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  rating: PropTypes.any.isRequired
+  rating: PropTypes.any.isRequired,
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleClick: company => {
-      dispatch(navigateToCompanyPage(company))
-    }
+    handleClick: id => dispatch(push(`/companies/${id}`))
   }
 }
-
 export default withRouter(connect(null, mapDispatchToProps)(CompanyCard))
