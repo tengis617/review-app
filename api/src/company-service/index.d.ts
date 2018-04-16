@@ -1,13 +1,19 @@
 
 export interface Company {
-  _key: string,
+  id: string,
   name: string,
-  category: string,
   description?: string,
+  created: Number,
+  updaged?: Number,
+  ownerId: string,
 }
 
 export interface CreateCompanyRequest {
   name: string,
-  category: string,
   description?: string,
+  ownerId: string
+}
+
+export interface GetCompanyRequest {
+  id: string
 }

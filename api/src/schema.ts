@@ -24,7 +24,7 @@ const Mutation = `
 const rootResolver = {}
 const schema = makeExecutableSchema({
   resolvers: merge(rootResolver, CompanyResolvers, AuthResolvers),
-  typeDefs: [ Query, Mutation, AuthSchema, CompanySchema ],
+  typeDefs: [Query, Mutation, AuthSchema, CompanySchema],
 })
 
 export default schema

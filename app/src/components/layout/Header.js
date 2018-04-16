@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom'
 import { tryLogout } from '../login/actions'
 import { Button } from '../ui'
 
-const Header = ({ isAuthenticated, onLogoutClick }) => (
+const Header = ({ user, onLogoutClick }) => (
   <nav className="flex items-center justify-between flex-wrap bg-white p-6">
     <div className="flex items-center flex-no-shrink mr-6">
       <span className="font-semibold text-xl tracking-tight"><Link to="/">review-app</Link></span>
@@ -14,7 +14,7 @@ const Header = ({ isAuthenticated, onLogoutClick }) => (
     </div>
     <div>
       {
-        isAuthenticated ? 
+        user.email ? 
         <AuthenticatedNav onLogoutClick={onLogoutClick} /> 
         : 
         <Link to="/login"> Login </Link>
@@ -33,13 +33,9 @@ const AuthenticatedNav = ({ onLogoutClick }) => (
   </div>
 )
 function mapStateToProps(state) {
-  const { user } = state || {
-    info: {},
-    isAuthenticated: false
-  }
+  const { user } = state || {}
   return {
-    info: user.info,
-    isAuthenticated: user.isAuthenticated
+    user
   }
 }
 

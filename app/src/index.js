@@ -7,7 +7,7 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 
 import Root from './containers/Root'
 import configureStore from './configureStore'
-import { initiateState } from './startup'
+
 import './main.css'
 import '@fortawesome/fontawesome'
 import '@fortawesome/fontawesome-free-regular'

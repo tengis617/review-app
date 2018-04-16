@@ -5,6 +5,7 @@ export const typeDefs = `
     id: String
     email: String
     image: String
+    token: String
   }
   extend type Query {
     currentUser: User
@@ -31,9 +32,9 @@ export const resolvers = {
     },
   },
   Query: {
-    user: async (root, args, context) => {
+    currentUser: async (root, args, context) => {
       if (!context.userId) {
-        throw new Error('no token provided')
+        return {}
       }
       const user = await Service.me(context.userId)
       return user

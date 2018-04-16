@@ -1,6 +1,7 @@
 import { aql } from 'arangojs'
 import db from '../db'
-import { Company } from './index.d'
+import * as Uuidv4 from 'uuid/v4'
+import { Company, CreateCompanyRequest, GetCompanyRequest } from './index.d'
 
 export const getAllCompanies = async () => {
   const cursor = await db.query(aql`
@@ -16,7 +17,8 @@ export const getAllCompanies = async () => {
   return companies
 }
 
-export const getCompanyById = async (id: string) => {
+export const getCompanyById = async (id) => {
+  console.log('----', id)
   const cursor = await db.query(aql`
     FOR c IN companies
       FILTER c._key == ${id}
@@ -31,7 +33,14 @@ export const getCompanyById = async (id: string) => {
   return company[0]
 }
 
-export const createCompany = async (company: Company) => {
+export const createCompany = async (companyRequest: CreateCompanyRequest): Promise<any> => {
+  const company: Company = {
+    id: Uuidv4(),
+    name: companyRequest.name,
+    description: companyRequest.description,
+    created: Date.now(),
+    ownerId: companyRequest.ownerId
+  }
   const c = await db.query(aql`
     INSERT ${company} INTO companies
       RETURN NEW

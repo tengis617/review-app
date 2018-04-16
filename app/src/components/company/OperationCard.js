@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OperationCard = ({ services, address, openingHours,  }) => (
+const OperationCard = ({ services, address, openingHours }) => (
   <div className="px-4 py-3">
     <div className="flex">
       <div className=" text-green">
@@ -16,13 +16,13 @@ const OperationCard = ({ services, address, openingHours,  }) => (
 
 const Address = ({ address }) => (
   <div className="flex-row text-left">
-      <div>
-        <i className='fa far fa-clock' />address
+    <div>
+      <i className='fa far fa-clock' />address
       </div>
-      <div className="text-grey-darker">
-        {address}
-      </div>
+    <div className="text-grey-darker">
+      {address}
     </div>
+  </div>
 )
 
 

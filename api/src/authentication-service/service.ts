@@ -49,6 +49,9 @@ export const login = async ({ email, password }) => {
     expiresIn: 86400, // expires in 24 hours
   })
   return {
+    email: user.email,
+    id: user._key,
+    image: user.image,
     token,
   }
 }

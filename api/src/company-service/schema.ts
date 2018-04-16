@@ -7,9 +7,6 @@ export const typeDefs = `
     company(id: String!): Company
     companies: [Company]
   }
-  extend type Mutation {
-    createCompany(company: Company!): Company
-  }
   type Company {
     id: String,
     name: String,
@@ -18,9 +15,6 @@ export const typeDefs = `
 `
 
 export const resolvers = {
-  Mutation: {
-    createCompany: (root, args) => Service.createCompany(args.company),
-  },
   Query: {
     companies: () => Service.getAllCompanies(),
     company: (root, args) => Service.getCompanyById(args.id),
