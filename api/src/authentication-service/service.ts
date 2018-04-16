@@ -14,10 +14,10 @@ export const register = async ({ email, password }) => {
     hashedPassword,
   }
   const newUser = await db.collection('users').save(user)
-  const access_token = JWT.sign({ id: user._key }, Config.JWT_SECRET, {
+  const token = JWT.sign({ id: user._key }, Config.JWT_SECRET, {
     expiresIn: 86400, // expires in 24 hours
   })
-  return access_token
+  return token
 }
 
 export const me = async (id) => {
@@ -41,15 +41,15 @@ export const login = async ({ email, password }) => {
   if (!user) {
     throw new Error('invalid email or password')
   }
-  const passwordIsValid = Bcrypt.compareSync(password, user.hashedPassword);
+  const passwordIsValid = Bcrypt.compareSync(password, user.hashedPassword)
   if (!passwordIsValid) {
     throw new Error('invalid email or password')
   }
-  const access_token = JWT.sign({ id: user._key }, Config.JWT_SECRET, {
+  const token = JWT.sign({ id: user._key }, Config.JWT_SECRET, {
     expiresIn: 86400, // expires in 24 hours
   })
   return {
-    access_token,
+    token,
   }
 }
 

@@ -5,7 +5,6 @@ import * as Router from 'koa-router'
 import { graphqlKoa, graphiqlKoa } from 'apollo-server-koa'
 
 import Config from './config'
-import reviewService from './review-service'
 import companyService from './company-service'
 import authenticationService from './authentication-service'
 

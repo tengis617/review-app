@@ -1,4 +1,4 @@
-import { graphqlKoa, graphiqlKoa } from 'apollo-server-koa';
+import { graphqlKoa, graphiqlKoa } from 'apollo-server-koa'
 import { makeExecutableSchema } from 'graphql-tools'
 import * as Service from './service'
 
@@ -18,15 +18,6 @@ const typeDefs = `
 `
 
 const resolvers = {
-  Query: {
-    currentUser: async (root, args, context) => {
-      if (!context.userId) {
-        return { }
-      }
-      const user = await Service.me(context.userId)
-      return user
-    },
-  },
   Mutation: {
     login: async (root, { email, password }) => {
       const user = await Service.login({ email, password })
@@ -38,6 +29,15 @@ const resolvers = {
         email: 't@task.com',
         id: 'user1',
       }
+    },
+  },
+  Query: {
+    currentUser: async (root, args, context) => {
+      if (!context.userId) {
+        return { }
+      }
+      const user = await Service.me(context.userId)
+      return user
     },
   },
 }
