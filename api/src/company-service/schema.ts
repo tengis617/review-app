@@ -2,10 +2,13 @@ import { graphiqlKoa, graphqlKoa } from 'apollo-server-koa'
 import { makeExecutableSchema } from 'graphql-tools'
 import * as Service from './service'
 
-const typeDefs = `
-  type Query {
+export const typeDefs = `
+  extend type Query {
+    company(id: String!): Company
     companies: [Company]
-    getCompanyById(id: String!): Company
+  }
+  extend type Mutation {
+    createCompany(company: Company!): Company
   }
   type Company {
     id: String,
@@ -14,16 +17,12 @@ const typeDefs = `
   }
 `
 
-const resolvers = {
+export const resolvers = {
+  Mutation: {
+    createCompany: (root, args) => Service.createCompany(args.company),
+  },
   Query: {
     companies: () => Service.getAllCompanies(),
-    getCompanyById: (root, args) => Service.getCompanyById(args.id),
+    company: (root, args) => Service.getCompanyById(args.id),
   },
 }
-
-const schema = makeExecutableSchema({
-  resolvers,
-  typeDefs,
-})
-
-export default schema

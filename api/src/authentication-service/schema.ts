@@ -1,23 +1,22 @@
-import { graphqlKoa, graphiqlKoa } from 'apollo-server-koa'
-import { makeExecutableSchema } from 'graphql-tools'
 import * as Service from './service'
 
-const typeDefs = `
+export const typeDefs = `
   type User {
     id: String
     email: String
     image: String
   }
-  type Query {
+  extend type Query {
     currentUser: User
+    user(id: String!): User
   }
-  type Mutation {
+  extend type Mutation {
     login(email: String!, password: String!): User
     signup(email: String!, password: String!): User
   }
 `
 
-const resolvers = {
+export const resolvers = {
   Mutation: {
     login: async (root, { email, password }) => {
       const user = await Service.login({ email, password })
@@ -32,19 +31,12 @@ const resolvers = {
     },
   },
   Query: {
-    currentUser: async (root, args, context) => {
+    user: async (root, args, context) => {
       if (!context.userId) {
-        return { }
+        throw new Error('no token provided')
       }
       const user = await Service.me(context.userId)
       return user
     },
   },
 }
-
-const schema = makeExecutableSchema({
-  resolvers,
-  typeDefs,
-})
-
-export default schema
