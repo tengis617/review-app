@@ -1,33 +1,22 @@
+import {  graphiqlKoa, graphqlKoa} from 'apollo-server-koa'
+import * as koaBody from 'koa-bodyparser'
 import * as Router from 'koa-router'
 import * as Service from './service'
 
-const r = new Router({ prefix: '/auth'})
+import { verifyToken } from '../authentication-service/service'
+import schema from './schema'
 
-r.post('/register', async (ctx, next) => {
-  try {
-    const { email, password } = ctx.request.body
-    const token = await Service.register({ email, password })
-    ctx.body = { ok:true, token }
-  } catch (e) {
-    ctx.status = 500
-    ctx.body = (e.message)
-  }
-})
+const r = new Router()
 
-r.post('/login', async (ctx, next) => {
-  const { email, password } = ctx.request.body
-  const result = await Service.login({ email, password })
-  ctx.body = result
-})
-r.get('/me', async (ctx, next) => {
-  try {
-    const access_token = ctx.headers['x-access-token']
-    if (!access_token) return ctx.status(401).body({ auth: false, message: 'No token provided.' })
-    const decoded = await Service.verifyToken({ access_token })
-    ctx.body = decoded
-  } catch (e) {
-    ctx.throw(401, 'authentication failed', e)
-  }
-})
+r.post(
+  '/graphql',
+  koaBody(),
+  graphqlKoa(async (req) => {
+    const token = req.headers.authorization.split(' ')[1]
+    const { id } = await verifyToken(token)
+    return { schema, context: { userId: id } }
+  }),
+)
+r.get('/graphql', graphqlKoa({ schema }))
 
 export default r

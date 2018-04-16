@@ -6,7 +6,6 @@ export interface Company {
   description?: string,
 }
 
-
 export interface CreateCompanyRequest {
   name: string,
   category: string,

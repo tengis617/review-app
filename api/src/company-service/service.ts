@@ -12,12 +12,11 @@ export const getAllCompanies = async () => {
         "description": company.description
       }
     `)
-    const companies = await cursor.all()
-    return companies
+  const companies = await cursor.all()
+  return companies
 }
 
-export const getCompanyById = async (id:string) => {
-  console.log(id)
+export const getCompanyById = async (id: string) => {
   const cursor = await db.query(aql`
     FOR c IN companies
       FILTER c._key == ${id}
@@ -29,7 +28,6 @@ export const getCompanyById = async (id:string) => {
       }
   `)
   const company = await cursor.all()
-  console.log(company)
   return company[0]
 }
 

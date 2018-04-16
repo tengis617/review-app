@@ -1,33 +1,29 @@
-import { graphqlKoa, graphiqlKoa } from 'apollo-server-koa';
+import { graphiqlKoa, graphqlKoa } from 'apollo-server-koa'
 import { makeExecutableSchema } from 'graphql-tools'
+import * as Service from './service'
 
-const companies = [
-  {
-    name: 'kfc',
-    description: 'fried chicken'
-  },
-  {
-    name: 'mcdonalds',
-    description: 'burgers with fries'
-  },
-];
-
-// The GraphQL schema in string form
 const typeDefs = `
-  type Query { companies: [Company] }
-  type Company { name: String, description: String }
-`;
+  type Query {
+    companies: [Company]
+    getCompanyById(id: String!): Company
+  }
+  type Company {
+    id: String,
+    name: String,
+    description: String,
+  }
+`
 
-// The resolvers
 const resolvers = {
-  Query: { companies: () => companies },
-};
+  Query: {
+    companies: () => Service.getAllCompanies(),
+    getCompanyById: (root, args) => Service.getCompanyById(args.id),
+  },
+}
 
-// Put together a schema
 const schema = makeExecutableSchema({
-  typeDefs,
   resolvers,
-});
-
+  typeDefs,
+})
 
 export default schema
